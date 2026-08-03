@@ -77,5 +77,7 @@ Next.js also depends on the internal `@aether/types` and `@aether/ui` shared pac
   npx turbo run build --filter=@aether/web && npx @cloudflare/next-on-pages
   ```
 - **Output Directory**: `apps/web/.vercel/output`
+- **Compatibility Flags**: Add the `nodejs_compat` compatibility flag to both **Production** and **Preview** environments in the Cloudflare Pages Settings (**Settings** > **Functions** > **Compatibility flags**).
+
 
 
