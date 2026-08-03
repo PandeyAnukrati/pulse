@@ -1,21 +1,19 @@
 "use client";
 
-export const runtime = "edge";
-
-import React, { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { useAuthStore } from "../../../store/useAuthStore";
-import CanvasBuilder from "../../../components/canvas/CanvasBuilder";
+import React, { useEffect, useState, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useAuthStore } from "../../store/useAuthStore";
+import CanvasBuilder from "../../components/canvas/CanvasBuilder";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { ReactFlowProvider } from "@xyflow/react";
 import Link from "next/link";
 import { Button } from "@aether/ui";
 
-export default function BoardPage() {
-  const params = useParams();
+function BoardContent() {
+  const searchParams = useSearchParams();
   const router = useRouter();
   const { accessToken } = useAuthStore();
-  const boardId = params.boardId as string;
+  const boardId = searchParams.get("id") as string;
   const [boardName, setBoardName] = useState("Collaborative Board");
   const [loading, setLoading] = useState(true);
 
@@ -73,3 +71,19 @@ export default function BoardPage() {
     </div>
   );
 }
+
+export default function BoardPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#050505] flex items-center justify-center text-white">
+        <div className="flex flex-col items-center gap-3">
+          <Loader2 className="w-6 h-6 animate-spin text-[#FF5C00]" />
+          <span className="text-xs text-white/40 tracking-wider">Opening Canvas...</span>
+        </div>
+      </div>
+    }>
+      <BoardContent />
+    </Suspense>
+  );
+}
+

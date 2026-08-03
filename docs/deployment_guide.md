@@ -69,15 +69,14 @@ Render needs to build internal shared dependency packages (like `@aether/types`)
   node apps/api/dist/main.js
   ```
 
-### 2. Next.js Frontend (Cloudflare Pages)
-Next.js also depends on the internal `@aether/types` and `@aether/ui` shared packages. Compile them utilizing Turbo and build the Cloudflare Pages adapter using `@cloudflare/next-on-pages`:
+### 2. Next.js Frontend (Cloudflare Pages / Static Hosting)
+Next.js also depends on the internal `@aether/types` and `@aether/ui` shared packages. Since the frontend is configured as a fully static HTML export (`output: 'export'`), compile and export the static site using Turbo:
 
 - **Build Command**:
   ```bash
-  npx turbo run build --filter=@aether/web && npx @cloudflare/next-on-pages
+  npx turbo run build --filter=@aether/web
   ```
-- **Output Directory**: `apps/web/.vercel/output`
-- **Compatibility Flags**: Add the `nodejs_compat` compatibility flag to both **Production** and **Preview** environments in the Cloudflare Pages Settings (**Settings** > **Functions** > **Compatibility flags**).
+- **Output Directory**: `apps/web/out`
 
 
 

@@ -5,6 +5,7 @@ const nextConfig = {
   transpilePackages: ["@aether/ui", "@aether/types"],
   reactStrictMode: true,
   outputFileTracingRoot: path.join(__dirname, '../../'),
+  output: 'export',
 };
 
 module.exports = nextConfig;

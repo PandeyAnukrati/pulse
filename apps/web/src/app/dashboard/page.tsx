@@ -380,7 +380,7 @@ export default function Dashboard() {
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                   <GlassPanel
-                    onClick={() => router.push(`/board/${ws.id}`)}
+                    onClick={() => router.push(`/board?id=${ws.id}`)}
                     className="p-6 h-36 flex flex-col justify-between hover:bg-white/[0.03] transition-colors cursor-pointer border-white/[0.04] shadow-md"
                   >
                     <div>
