@@ -52,3 +52,29 @@ docker compose ps
 # Check NestJS server logs
 docker compose logs api -f
 ```
+
+---
+
+## ☁️ Cloud Deployments
+
+### 1. NestJS Backend (Render)
+Render needs to build internal shared dependency packages (like `@aether/types`) before compiling the NestJS API application. Use **Turbo** to automate dependency compilation:
+
+- **Build Command**:
+  ```bash
+  npm ci && npx prisma db push --schema=apps/api/prisma/schema.prisma && npx turbo run build --filter=@aether/api
+  ```
+- **Start Command**:
+  ```bash
+  node apps/api/dist/main.js
+  ```
+
+### 2. Next.js Frontend (Cloudflare Pages)
+Next.js also depends on the internal `@aether/types` and `@aether/ui` shared packages. Compile them utilizing Turbo:
+
+- **Build Command**:
+  ```bash
+  npx turbo run build --filter=@aether/web
+  ```
+- **Output Directory**: `apps/web/.next`
+
