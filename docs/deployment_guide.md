@@ -70,12 +70,12 @@ Render needs to build internal shared dependency packages (like `@aether/types`)
   ```
 
 ### 2. Next.js Frontend (Cloudflare Pages)
-Next.js also depends on the internal `@aether/types` and `@aether/ui` shared packages. Compile them utilizing Turbo and delete the webpack build cache (`.next/cache`) to avoid Cloudflare's 25 MiB file size limit:
+Next.js also depends on the internal `@aether/types` and `@aether/ui` shared packages. Compile them utilizing Turbo and build the Cloudflare Pages adapter using `@cloudflare/next-on-pages`:
 
 - **Build Command**:
   ```bash
-  npx turbo run build --filter=@aether/web && rm -rf .next/cache
+  npx turbo run build --filter=@aether/web && npx @cloudflare/next-on-pages
   ```
-- **Output Directory**: `.next`
+- **Output Directory**: `apps/web/.vercel/output`
 
 
