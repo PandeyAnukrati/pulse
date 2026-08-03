@@ -1,0 +1,33 @@
+name: Aether Continuous Integration
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Source Code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install Monorepo Dependencies
+      run: npm ci
+
+    - name: Verify Prisma Client Generation
+      run: npx prisma generate --schema=apps/api/prisma/schema.prisma
+
+    - name: Lint Verification
+      run: npx turbo run lint --continue-on-error
+
+    - name: Build Verification (Monorepo Compile Check)
+      run: npx turbo run build

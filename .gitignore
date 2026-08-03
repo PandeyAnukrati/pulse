@@ -1,0 +1,22 @@
+# Dependency directories
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# NestJS build output
+dist/
+
+# Turbo build cache
+.turbo/
+
+# Logs
+*.log
+npm-debug.log*
+
+# System and IDE folders
+.system_generated/
+.vscode/
+.idea/
+.DS_Store
